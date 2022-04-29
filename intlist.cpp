@@ -28,7 +28,7 @@ IntList::~IntList() {
         }
         delete n;
     }
-    this->first = 0;
+
 }
 
 
