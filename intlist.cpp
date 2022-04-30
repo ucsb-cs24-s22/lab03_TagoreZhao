@@ -11,24 +11,25 @@ using std::cout;
 IntList::IntList(const IntList& source) {
     //IMPLEMENT THIS
     Node *n = source.first;
-    while (n) {
-        append(n->info);
+    append(n->info);
+    while (n->next) {
         n = n->next;
+        append(n->info);
     }
-
 }
 
 // destructor deletes all nodes
 IntList::~IntList() {
     //IMPLEMENT THIS
+    
     for (int i=0; i < count(); i++){
         Node *n = first;
-        while (n){
+        while (n->next){
             n = n->next;
         }
         delete n;
     }
-
+    first = 0;
 }
 
 
