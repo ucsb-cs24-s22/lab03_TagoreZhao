@@ -97,11 +97,17 @@ IntList& IntList::operator=(const IntList& source){
         delete c;
         c = n;
     }
+    first = 0;
     Node *n = source.first;
-    append(n->info);
-    while (n->next) {
-        n = n->next;
+    if (n) {
+        return *this;
+    }
+    else{
         append(n->info);
+        while (n->next) {
+            n = n->next;
+            append(n->info);
+        }
     }
     return *this;
 }
