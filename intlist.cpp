@@ -103,29 +103,30 @@ void IntList::insertFirst(int value) {
 //Assignment operator should copy the list from the source
 //to this list, deleting/replacing any existing nodes
 IntList& IntList::operator=(const IntList& source){
+    // delete everything on the list (same as the destructor)
     Node* c = first;
     while ( c != 0 ){
         Node* n = c->next;
         delete c;
         c = n;
     }
+    first = 0;
+    //if copy null list than return directly
+    if (source.first == 0){
+        return *this;
+    }
+    //if not copying null, then copy every node. (same as copy constructor)
     Node *n = source.first;
     first = new Node;
     first->info = n->info;
     first->next = 0;
     Node *m = first;
-    if (source.first == 0) { 
-        first = 0;
-        delete m;
-    }
-    else {
-        while (n->next){
+    while (n->next){
         n = n->next;
         m->next = new Node;
         m->next->info = n->info;
         m->next->next = 0;
         m = m ->next;
-        }
     }
     return *this;
 }
