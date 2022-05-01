@@ -11,10 +11,22 @@ using std::cout;
 IntList::IntList(const IntList& source) {
     //IMPLEMENT THIS
     Node *n = source.first;
-    append(n->info);
-    while (n->next) {
+    first = new Node;
+    first->info = n->info;
+    first->next = 0;
+    Node *m = first;
+    if (source.first == 0) { 
+        first = 0;
+        delete m;
+    }
+    else {
+        while (n->next){
         n = n->next;
-        append(n->info);
+        m->next = new Node;
+        m->next->info = n->info;
+        m->next->next = 0;
+        m = m ->next;
+        }
     }
 }
 
@@ -97,16 +109,22 @@ IntList& IntList::operator=(const IntList& source){
         delete c;
         c = n;
     }
-    first = 0;
     Node *n = source.first;
-    if (n) {
-        return *this;
+    first = new Node;
+    first->info = n->info;
+    first->next = 0;
+    Node *m = first;
+    if (source.first == 0) { 
+        first = 0;
+        delete m;
     }
-    else{
-        append(n->info);
-        while (n->next) {
-            n = n->next;
-            append(n->info);
+    else {
+        while (n->next){
+        n = n->next;
+        m->next = new Node;
+        m->next->info = n->info;
+        m->next->next = 0;
+        m = m ->next;
         }
     }
     return *this;
