@@ -1,6 +1,6 @@
 // intlist.cpp
 // Implements class IntList
-// YOUR NAME(S), AND DATE Tagore Zhao, 29th, April
+// YOUR NAME(S), AND DATE
 
 #include "intlist.h"
 
@@ -21,15 +21,12 @@ IntList::IntList(const IntList& source) {
 // destructor deletes all nodes
 IntList::~IntList() {
     //IMPLEMENT THIS
-    
-    for (int i=0; i < count(); i++){
-        Node *n = first;
-        while (n->next){
-            n = n->next;
-        }
-        delete n;
+    Node* c = first;
+    while ( c != 0 ){
+        Node* n = c->next;
+        delete c;
+        c = n;
     }
-    first = 0;
 }
 
 
@@ -41,7 +38,7 @@ int IntList::sum() const {
         m += n->info;
         n = n->next;
     }
-    return m; // REPLACE THIS NON-SOLUTION
+    return m;
 }
 
 // returns true if value is in the list; false if not
@@ -53,7 +50,7 @@ bool IntList::contains(int value) const {
         }
         n = n->next;
     }
-    return false; // REPLACE THIS NON-SOLUTION
+    return false;
 }
 
 // returns maximum value in list, or 0 if empty list
@@ -71,7 +68,7 @@ int IntList::max() const {
     else{
         return 0;
     }
-    return m->info; // REPLACE THIS NON-SOLUTION
+    return m->info;
 }
 
 // returns average (arithmetic mean) of all values, or
@@ -80,12 +77,11 @@ double IntList::average() const {
     if (first == 0){
         return 0.000;
     }
-    return sum()/(count()+0.0); // REPLACE THIS NON-SOLUTION
+    return sum()/(count()+0.0);
 }
 
 // inserts value as new node at beginning of list
 void IntList::insertFirst(int value) {
-    // IMPLEMENT
     Node* temp = first;
     first = new Node;
     first->info = value;
@@ -95,19 +91,17 @@ void IntList::insertFirst(int value) {
 //Assignment operator should copy the list from the source
 //to this list, deleting/replacing any existing nodes
 IntList& IntList::operator=(const IntList& source){
-    //IMPLEMENT
-     for (int i=0; i < count(); i++){
-        Node *n = first;
-        while (n->next){
-            n = n->next;
-        }
-        delete n;
+    Node* c = first;
+    while ( c != 0 ){
+        Node* n = c->next;
+        delete c;
+        c = n;
     }
-    this->first = 0;
-    Node* n = first;
-    for (int i=0; i<source.count(); i++ ){
-        append(n->info);
+    Node *n = source.first;
+    append(n->info);
+    while (n->next) {
         n = n->next;
+        append(n->info);
     }
     return *this;
 }
